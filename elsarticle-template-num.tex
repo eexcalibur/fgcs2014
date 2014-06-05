@@ -148,7 +148,7 @@ In HDFS, there are two types of node, Namenode and Datanode. Namenode maintains 
 directories stored in HDFS, and Datanodes are where the data are actually stored. When a file are stored into HDFS, it will be
 split into file blocks as the storage unit of HDFS. For achieving fault-tolerance, HDFS stores three replicas, by default, for each
 file blocks in different datanodes. Therefore, even individual node halts down, all data, which are stored in the halted node, can
-be accessed from other replicas. All of I/O operates can be manipulated through Clientnode. \par
+be accessed from other replicas. All of I/O operates can be mantipulaed through Clientnode. \par
 Each Datanode can mount several hard disks and it manages these hard disks by itself. By default, Datanode will store each block
 into the hard disks in a round-robin way. For example, when a file ``a'' will be stored into HDFS via Clientnode, Namenode will add
 ``a'' into the file system tree. Then Clientnode begin writing the content into HDFS. Once Clientnode detects that current writing
@@ -158,7 +158,39 @@ Namenode will select three Datanodes to store a block in the file ``a''. In Data
 of a block. As shown in Figure 1, the last block ``k'' is stored in disk ``2'', then the new one ``j'' will locate at disk ``0'' 
 according to the round-robin rule. \par
 Blocks of files are distributed in the two-tiered storage achitechture, Datanode and Datanode's disk. It will make full use of the
-collective bandwidth of HDFS if each relca of blocks  
+collective bandwidth of HDFS if each relca of blocks is appropriately choosen and scheduled to reduce remoting reading among
+Datanodes. \par
+MapReduce is usually introduced as a computaion model cooperating with HDFS. It can process the data with good locality.
+However, due to the traits of scientific data and the operation pattern, MapReduce cannot be directly utilized on scientific-data
+analysis with perfect performance.
+
+\subsection{Scientific-data Analysis}
+Scientific-data are usually stored in high-structured files, a kinds of spectial binary format, which can not be read directly by
+MapReduce. Each file contain multi logical units, and each unit are corresponding to its own phsical meaning. The size of 
+each logical varies a lot in one file and only same logical units can be manipulated in most of analysis operations \par
+In this paper, climte model data is used, the total size of which is extremely huge. The high resolution ocean model, a sub-component
+model in climate model, has 48TB for 100 simulated years, with monthly output. These data are organized by thousands of files with 
+timestamp named in NetCDF format, called history result. Each file contains the same dozens of physical variables. Analysis 
+operations need to process the whole or part of the history results. These operations include computing average, combining the same 
+variables in different files, producing the remapping file and fast Fourier transform (FFT), etc. They require to handle whole or
+part of variables in multi-files.
+
+\subsection{Problems and Chanllenges} 
+Problem/Challenge 1: How to define the operation unit considering the storage unit？ Logical unit size varies a lot from a few bytes to
+gigabytes, which means that one file block may contain hundreds of logical units whereas another file block only store small
+proportion of one logical unit. Then the logical block can not be used as the operation unit. Otherwise, the workflow of each task will be
+imbalance if each block contains the same logical units. \par
+Problem/Challenge 2: How to schedule tasks among many files to increases the locality and reduce the data network transfer? If all logical
+units with same meanings locate on the same Datanode, all data access will proceed locally. However, default block placement policy of HDFS
+cannot ensure that, which leads huge amount data network transfer, as the above methtioned. \par
+Problem/Challenge 3: How to best utilize the disk I/O?
+
+\section{Parallel scientific-data analysis}
+In order to solve the problems mentioned in previous section to take full use of distributed I/O performance, we propose a new framework - Parallel Scientific-data Analysis (ParSA).
+
+\subsection{Logical Unit Split and Group among File Blocks}
+No matter how a file is split, all data in one block are stored contiguously in a physical location, since file block is the storage unit of HDFS. Thus we can split and group the logical unit according to the file block location to avoid remote data access from other file blocks. When other blocks locate on other Datanodes, data network access should be involved, which will impacts the performance.
+
 %\label{text}
 
 %% The Appendices part is started with the command \appendix;
