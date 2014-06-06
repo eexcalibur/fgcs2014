@@ -206,9 +206,14 @@ an index vector and count vector to represent. In this situation, we should spli
 
 \subsection{Scheduler}
 As discussed in section 2.3, quite a few operations are only executed on the same logical units among multi-files. In principle, blocks 
-containing these units should be scheduled in one Datanode as many as possible. \par
-At first, information about file distribution should be gathered. In this paper, we define the tuple (Datanode number, hard disk
-number) as the location of a file block. 
+containing these units should be scheduled in one Datanode as many as possible to increase the acess locality. \par
+At first, information about file distribution should be gathered. As discussion in section 2.1, file block has three replicas by default. 
+In this paper, we define the tuple (Ni, Dj) as the location of a file block, which means Datanode number and hard disk number, respectively. 
+Assume we get the following block location information for the first file block of all three files. \par
+For the nine replicas for B0 of F1, F2 and F3, Datanode N0 covers 2 replicas. N1 contains 2 replicas and other Datanode only contain 1 for 
+each. Then Datnode N0 and N1 contain the same number of replicas. Therefore, Datanode N0 is chosen to process the B0 block of F1 and F2,
+instead of N1 to process B0 of F0 and F2. The reason is that B0 of F0 and F2 locates on the same hard disk in N1 Datanode, which is more 
+likely to impact the performance (explained in section 3.3).  
 
 %\label{text}
 	

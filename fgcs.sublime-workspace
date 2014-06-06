@@ -11,19 +11,47 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "elsarticle-template-num.tex",
+			"settings":
+			{
+				"buffer_size": 15239,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 87.0,
+		"height": 227.0,
 		"selected_items":
 		[
+			[
+				"comm",
+				"Git: Commit history"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"stas",
+				"Git: Status"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
 			[
 				"push",
 				"Git: Push"
 			],
 			[
-				"comm",
+				"commit",
 				"Git: Commit"
 			],
 			[
@@ -35,20 +63,8 @@
 				"Git: Push"
 			],
 			[
-				"git sta",
-				"Git: Status"
-			],
-			[
 				"git add",
 				"Git: Add Current File"
-			],
-			[
-				"git co",
-				"Git: Commit"
-			],
-			[
-				"git",
-				"Git: Status"
 			],
 			[
 				"",
@@ -220,6 +236,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"problem",
 			"mant",
 			"man",
 			"mant",
@@ -247,8 +264,35 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "elsarticle-template-num.tex",
+					"settings":
+					{
+						"buffer_size": 15239,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14619,
+								14619
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4018.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
