@@ -213,7 +213,12 @@ Assume we get the following block location information for the first file block 
 For the nine replicas for B0 of F1, F2 and F3, Datanode N0 covers 2 replicas. N1 contains 2 replicas and other Datanode only contain 1 for 
 each. Then Datnode N0 and N1 contain the same number of replicas. Therefore, Datanode N0 is chosen to process the B0 block of F1 and F2,
 instead of N1 to process B0 of F0 and F2. The reason is that B0 of F0 and F2 locates on the same hard disk in N1 Datanode, which is more 
-likely to impact the performance (explained in section 3.3).  
+likely to impact the performance (explained in section 3.3). Although N1, N6 and N7 all have the B0 relica of F2, N1 is selected. 
+Because when disk 0 of N0 is broken, the relica B0 of F0 can be accessed in N1. Accroding to this principle, other blocks can be scheduled
+as the Figure 5(b) shown.
+
+\subsection{Workflow of ParSA}
+ 
 
 %\label{text}
 	
