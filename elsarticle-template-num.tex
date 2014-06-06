@@ -177,22 +177,41 @@ part of variables in multi-files.
 
 \subsection{Problems and Chanllenges} 
 Problem/Challenge 1: How to define the operation unit considering the storage unit？ Logical unit size varies a lot from a few bytes to
-gigabytes, which means that one file block may contain hundreds of logical units whereas another file block only store small
-proportion of one logical unit. Then the logical block can not be used as the operation unit. Otherwise, the workflow of each task will be
-imbalance if each block contains the same logical units. \par
+gigabytes. Then it can not be used as the operation unit. Otherwise, the workflow of each task will be imbalance. \par
 Problem/Challenge 2: How to schedule tasks among many files to increases the locality and reduce the data network transfer? If all logical
 units with same meanings locate on the same Datanode, all data access will proceed locally. However, default block placement policy of HDFS
 cannot ensure that, which leads huge amount data network transfer, as the above methtioned. \par
 Problem/Challenge 3: How to best utilize the disk I/O?
 
 \section{Parallel scientific-data analysis}
-In order to solve the problems mentioned in previous section to take full use of distributed I/O performance, we propose a new framework - Parallel Scientific-data Analysis (ParSA).
+In order to solve the problems mentioned in previous section to take full use of distributed I/O performance, we propose a new framework - 
+Parallel Scientific-data Analysis (ParSA). 
 
 \subsection{Logical Unit Split and Group among File Blocks}
-No matter how a file is split, all data in one block are stored contiguously in a physical location, since file block is the storage unit of HDFS. Thus we can split and group the logical unit according to the file block location to avoid remote data access from other file blocks. When other blocks locate on other Datanodes, data network access should be involved, which will impacts the performance.
+No matter how a file is split, all data in one block are stored contiguously in a physical location, since file block is the storage
+unit of HDFS. Thus the block of HDFS can be used as the basic operation unit to keep continuity in disk and improve I/O performance 
+by proper scheduling to reduce network read. In a block, we can group the small size of logical units or split the big size one.\par
+The logical unit split and group approach is shown in Figure 2. All logical units located in one block are distributed into one group. 
+If a logical unit spans two or more blocks, this logical unit will split to several parts. For example, LU1 spans three blocks. It will 
+split into three split parts - LU1 (1), LU1 (2) and LU1 (3), unique identifier assigned to each part. Then LU1 (1) and LU0 locate in file
+block 0 and form a operation unit group. LU1 (2) itself is distributed as a group. The remaining LU1 (3), LU2 and LU3 are distributed to the 
+third group. The mapping relationship between groups and file blocks should be records, as shown in Figure 3. \par
+Variables in NetCDF, used in climate data, can be viewed as multi-dimension array. An array section is defined as a contiguous rectangular
+block specified by two vectors - index vector and count vector. The index vector indicates the start offset of the element in the corner
+closest to the orign. The count vector gives the lengths of the edges along each of the variable's dimension. \par
+For instance, the variable given in Figure 4 (a) is a two-dimension slab. If we access the whole variable, index vector is (0, 0) and 
+count vector is (3, 5). However, if this variable locates on two file blocks stored with HDFS, and variable are split between value (1, 1) 
+and value (1, 2), it cannot be split into these two pieces. The reason is that each of part is not a rectangular shape, which can not use
+an index vector and count vector to represent. In this situation, we should split the variable into four pieces, as Figure 4(b) shows.
+
+\subsection{Scheduler}
+As discussed in section 2.3, quite a few operations are only executed on the same logical units among multi-files. In principle, blocks 
+containing these units should be scheduled in one Datanode as many as possible. \par
+At first, information about file distribution should be gathered. In this paper, we define the tuple (Datanode number, hard disk
+number) as the location of a file block. 
 
 %\label{text}
-
+	
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %% \appendix
