@@ -46,6 +46,8 @@
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
 \usepackage{lineno}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
 
 \journal{Future Generation Computer Systems}
 
@@ -218,7 +220,113 @@ Because when disk 0 of N0 is broken, the relica B0 of F0 can be accessed in N1. 
 as the Figure 5(b) shown.
 
 \subsection{Workflow of ParSA}
- 
+Although we utilize the file block location in HDFS to schedule which block relica are selected among Datanodes, I/O bandwidth of disks may 
+not be efficiently utilized intra-Datanode. For example, the file block B0s of F0 and F1 are assigned to N0 in Figure 5. Even though B0 of 
+F0 and B0 of F1 locate on different disks - D0 and D1 respectively, the two disks are accessed sequentially instead of parallelly, if the
+operations are implement from logical level at Datanode N0 as following:
+
+\begin{algorithm}[htb]
+\caption{Sequential operation on disk in the same Datanode} 
+\label{alg:sequential-operation}
+\begin{algorithmic}
+\FOR{each logical-unit \textbf{LU} in B0}
+\FOR{each file \textbf{Fx} whose block B0 locates on N0}
+\STATE read \textbf{LU} from B0 of Fx
+\STATE operate on \textbf{LU} 
+\ENDFOR
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+In this paper, we propose a new workflow to efficiently access the data on HDFS and maximize utilizing all disk bandwidth in one 
+Datanode. \par
+In ParSA, the framework of hybird of MPI and pthread is used. MPI is responsible for parallel and communication among Datanodes. There
+is one MPI process in each Datanode. Pthead is responsible to implement the detail operations within each Datanode, constituting of 
+three major components: reading-thread, processing-thread and receiving-thread. \par
+\textbf{Reading-thread} If more than one thread dedicatedly access one disk, it cannot get a higher performance than only one thread. 
+Thus we invoke one thread for each disk. This is defined as reading-thread and use $Tread_i$ to present the $i_{th}$ reading-thread. 
+For each block, $Tread_i$ reads the queue of logical units, shown in Figure 3. After reading the logical unit, it is marked as LOCAL\_FLAG, 
+distinguishing with receiving data. The workflow of reading-thread is given below:
+
+\begin{algorithm}[htb]
+\caption{reading-thread} 
+\label{alg:reading-thread}
+\begin{algorithmic}
+\STATE inputs:
+\STATE \textbf{datanode\_number}:the Datanode where the reading-thread locates.
+\STATE \textbf{disk\_number}:the disk number to be accessed. 
+\STATE \textbf{scheduler\_result}:task scheduler result, given in Figure 5(b).
+\STATE \textbf{LU\_groups\_map}:mapping relations between logical unit groups and file blocks in Figure 3.
+\newline
+\FOR{each tuple (node\_no, disk\_no) in \textbf{scheduler\_result}} 
+\IF{node\_no = \textbf{datanode\_number} and disk\_no = \textbf{disk\_number}}
+\STATE get the \textbf{file-index} and \textbf{block-index} according to the index of tuple, shown in Figure 5(a).
+\FOR{each \textbf{lu} in \textbf{LU\_groups\_map[block\_index]}}
+\STATE read \textbf{values} of \textbf{lu} of \textbf{file\_index} file
+\STATE store \textbf{file-index} and \textbf{values} into \textbf{lu}
+\STATE mark \textbf{lu} as \textbf{LOCAL\_TAG}
+\STATE insert (\textbf{lu}) into data queue
+\STATE notify processing-thread
+\ENDFOR
+\ENDIF
+\ENDFOR
+\STATE send \textbf{ending-flag} to processing-thread
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Processing-thread} After reading-threads read logical units into queue, the processing-thread will be waked up. The processing-
+thread takes in charge of calling user-defined function local\_data\_process to process these logical units. Users only focus on 
+implementing operations on logical unit. Since each Datanode only covers part of entire dataset, the major process should reduce the 
+intermediate results, computed with each process in each Datanode. This operation is another user-defined recv\_data\_process function. 
+
+\begin{algorithm}[htb]
+\caption{processing-thread} 
+\label{alg:processing-thread}
+\begin{algorithmic}
+\STATE inputs:
+\STATE \textbf{num\_tasks}:total number of \textbf{ending-flag} to wait
+\STATE \textbf{intermediate\_results}:store the intermediate results
+\newline
+\STATE \textbf{cur\_num\_tasks} = 0
+\WHILE{$\textbf{cur\_num\_tasks} < \textbf{num\_tasks}$}
+\STATE wait until receiving notification
+\IF{receive \textbf{ending-flag}}
+\STATE $\textbf{cur\_num\_tasks++}$
+\STATE fetch the logical unit queue
+\FOR{each \textbf{lu} in logical unit queue}
+\STATE get \textbf{interm\_res} according to \textbf{lu identifier} from \textbf{intermediate\_results}
+\IF{\textbf{lu's} flag == LOCAL\_FLAG}
+\STATE call \textbf{local\_data\_process} (\textbf{lu}, \textbf{interm\_res})
+\ENDIF
+\IF{\textbf{lu's} flag == RECV\_FLAG}
+\STATE call \textbf{recv\_data\_process} (\textbf{lu}, \textbf{interm\_res}) 
+\ENDIF
+\IF{is not major process}
+\IF{all logical unit are processed in this Datanode}
+\STATE store \textbf{interm\_res} into lu
+\STATE mark lu as \textbf{RECV\_TAG}
+\STATE send (lu) to major process
+\ENDIF
+\ENDIF
+\ENDFOR
+\ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Receiving-thread} Receiving-thread is a component in major process. It receives logical inits from worker processes, and
+puts the logicl units into the receiving queue. Then the processing-thread is notified to fetch these data. \par
+The workflow of ParSA is shown in Figure 6. Major process locates in Datanode 0, and a worker process is presented as Datanode2. Each 
+reading thread reads the logical units which is assigned to this thread. After $Tread_0$ in Datanode 2 reading the logical LU1 (3) of F0,
+it reads LU2 of F0, inserts the values into queue and notifies processing-thread to wake up. The processing-thread processes all the values 
+in queue sequentially. When processing-thread detects that LU1 (3) are all processed in Datanode 2, it will send the intermediate results 
+to the major process. Once Receiving-thread in major process gets the intermediate results, it inserts the results into the logical unit 
+queue. Since the logical unit queue is the shared resource, all threads must access exclusively. \par
+ParSA is the framework for scientific-data access on HDFS. Users can only put their focus on logical operations.  ParSA is implemented 
+using MPI and Pthread, providing more flexible configration with regard to performance than MapReduce. ParSA can achieve load-balance based
+on current block relicas layout information. However, if the layout itself is unbalance, the performance is also impacted. In the next section, how to further improve the performance by optimizing layout will be discussed.
+
+\section{Block layout optimization}
 
 %\label{text}
 	
@@ -238,14 +346,14 @@ as the Figure 5(b) shown.
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
 
-\begin{thebibliography}{00}
+%\begin{thebibliography}{00}
 
 %% \bibitem{label}
 %% Text of bibliographic item
 
-\bibitem{text}
+%\bibitem{text}
 
-\end{thebibliography}
+%\end{thebibliography}
 \end{document}
 \endinput
 %%

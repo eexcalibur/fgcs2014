@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.30)  7 JUN 2014 01:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.30)  9 JUN 2014 01:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -129,35 +129,62 @@ Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 \bframebox=\box30
 LaTeX Info: Redefining \\ on input line 3056.
 )
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count102
+\float@exts=\toks19
+\float@box=\box31
+\@float@everytoks=\toks20
+\@floatcapt=\box32
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks21
+\c@algorithm=\count103
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count104
+\c@ALC@line=\count105
+\c@ALC@rem=\count106
+\c@ALC@depth=\count107
+\ALC@tlm=\skip47
+\algorithmicindent=\skip48
+)
 (./elsarticle-template-num.aux)
 \openout1 = `elsarticle-template-num.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
 
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
+\scratchcounter=\count108
 \scratchdimen=\dimen114
-\scratchbox=\box31
-\nofMPsegments=\count103
-\nofMParguments=\count104
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count105
+\scratchbox=\box33
+\nofMPsegments=\count109
+\nofMParguments=\count110
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count111
 \MPscratchDim=\dimen115
-\MPnumerator=\count106
-\makeMPintoPDFobject=\count107
-\everyMPtoPDFconversion=\toks20
+\MPnumerator=\count112
+\makeMPintoPDFobject=\count113
+\everyMPtoPDFconversion=\toks23
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -206,17 +233,17 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 107.
+LaTeX Font Info:    Try loading font information for U+msa on input line 109.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 107.
+LaTeX Font Info:    Try loading font information for U+msb on input line 109.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (1.71492pt too wide) in paragraph at lines 113--116
+Overfull \hbox (1.71492pt too wide) in paragraph at lines 115--118
 \OT1/cmr/m/n/12 duced. Large-scale sim-u-la-tions, such as cli-mate mod-el-ing,
  high-energy physics
  []
@@ -226,7 +253,7 @@ Overfull \hbox (1.71492pt too wide) in paragraph at lines 113--116
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-Overfull \hbox (4.13898pt too wide) in paragraph at lines 160--162
+Overfull \hbox (4.13898pt too wide) in paragraph at lines 162--164
 []\OT1/cmr/m/n/12 Blocks of files are dis-tributed in the two-tiered stor-age a
 chitech-ture, Datan-
  []
@@ -235,26 +262,46 @@ chitech-ture, Datan-
 Missing character: There is no ï in font cmr12!
 Missing character: There is no ¼ in font cmr12!
 Missing character: There is no Ÿ in font cmr12!
- [4] [5] [6] (./elsarticle-template-num.aux) ) 
+ [4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 259--261
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--290
+
+ []
+
+
+Underfull \hbox (badness 1009) in paragraph at lines 297--298
+[] []\OT1/cmr/m/n/12 get \OT1/cmr/bx/n/12 in-term[]res \OT1/cmr/m/n/12 ac-cord-
+ing to \OT1/cmr/bx/n/12 lu iden-ti-fier \OT1/cmr/m/n/12 from \OT1/cmr/bx/n/12 i
+n-ter-me-di-
+ []
+
+[7] [8] [9] (./elsarticle-template-num.aux) ) 
 Here is how much of TeX's memory you used:
- 2579 strings out of 493315
- 34599 string characters out of 6137904
- 95418 words of memory out of 5000000
- 5994 multiletter control sequences out of 15000+600000
+ 2859 strings out of 493315
+ 38141 string characters out of 6137904
+ 105915 words of memory out of 5000000
+ 6260 multiletter control sequences out of 15000+600000
  10574 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,4n,30p,279b,182s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2013/texmf-dist/font
-s/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on elsarticle-template-num.pdf (6 pages, 99056 bytes).
+ 38i,5n,30p,279b,700s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2013/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti12.pfb>
+Output written on elsarticle-template-num.pdf (9 pages, 135446 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
- 32 compressed objects within 1 object stream
+ 70 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
