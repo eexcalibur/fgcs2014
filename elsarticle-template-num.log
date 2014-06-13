@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.30)  9 JUN 2014 01:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.30)  14 JUN 2014 04:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -279,29 +279,41 @@ ing to \OT1/cmr/bx/n/12 lu iden-ti-fier \OT1/cmr/m/n/12 from \OT1/cmr/bx/n/12 i
 n-ter-me-di-
  []
 
-[7] [8] [9] (./elsarticle-template-num.aux) ) 
+[7] [8]
+Overfull \hbox (3.58203pt too wide) in paragraph at lines 366--368
+[]\OT1/cmr/m/n/12 To eval-u-ate the scal-a-bil-ity of ParSA, we com-pare the sp
+eedup and through-
+ []
+
+[9] [10]
+Overfull \hbox (1.77937pt too wide) in paragraph at lines 403--409
+[]\OT1/cmr/m/n/12 A high-throughput and scal-able sci-en-tific frame-work com-b
+ined with HDFS
+ []
+
+[11] [12] (./elsarticle-template-num.aux) ) 
 Here is how much of TeX's memory you used:
  2859 strings out of 493315
  38141 string characters out of 6137904
- 105915 words of memory out of 5000000
+ 105916 words of memory out of 5000000
  6260 multiletter control sequences out of 15000+600000
  10574 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,5n,30p,279b,700s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmti12.pfb>
-Output written on elsarticle-template-num.pdf (9 pages, 135446 bytes).
+</usr/local/texlive/2013/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmti12.pfb>
+Output written on elsarticle-template-num.pdf (12 pages, 145503 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 79 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

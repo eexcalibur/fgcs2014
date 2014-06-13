@@ -15,7 +15,7 @@
 			"file": "elsarticle-template-num.tex",
 			"settings":
 			{
-				"buffer_size": 15239,
+				"buffer_size": 26352,
 				"line_ending": "Unix"
 			}
 		}
@@ -23,19 +23,43 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 227.0,
+		"height": 87.0,
 		"selected_items":
 		[
 			[
+				"push",
+				"Git: Push"
+			],
+			[
 				"comm",
-				"Git: Commit history"
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add..."
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"git add",
+				"Git: Add..."
 			],
 			[
 				"git",
 				"Git: Status"
 			],
 			[
-				"git sta",
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git ",
 				"Git: Status"
 			],
 			[
@@ -47,24 +71,12 @@
 				"Git: Commit"
 			],
 			[
-				"push",
-				"Git: Push"
-			],
-			[
 				"commit",
 				"Git: Commit"
 			],
 			[
-				"add",
-				"Git: Add..."
-			],
-			[
 				"pus",
 				"Git: Push"
-			],
-			[
-				"git add",
-				"Git: Add Current File"
 			],
 			[
 				"",
@@ -73,10 +85,6 @@
 			[
 				"git init",
 				"Markdown Preview: Github Flavored Markdown: Export HTML in Sublime Text"
-			],
-			[
-				"git ",
-				"Git: Status"
 			],
 			[
 				"init",
@@ -92,10 +100,6 @@
 			],
 			[
 				"git pu",
-				"Git: Push"
-			],
-			[
-				"git push",
 				"Git: Push"
 			],
 			[
@@ -225,7 +229,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 99.0,
 		"where_history":
 		[
 			""
@@ -236,6 +240,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"two",
+			"tired",
+			"algori",
+			"newtheorem",
+			"and",
+			"newtheorem",
 			"problem",
 			"mant",
 			"man",
@@ -272,15 +282,15 @@
 					"file": "elsarticle-template-num.tex",
 					"settings":
 					{
-						"buffer_size": 15239,
+						"buffer_size": 26352,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14619,
-								14619
+								25847,
+								25847
 							]
 						],
 						"settings":
@@ -288,7 +298,7 @@
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4018.0,
+						"translation.y": 7626.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -334,6 +344,10 @@
 	"output.git":
 	{
 		"height": 142.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 136.0
 	},
 	"replace":
 	{
