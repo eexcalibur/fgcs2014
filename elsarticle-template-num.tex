@@ -77,23 +77,35 @@
 
 \title{ParSA: High-throughput Scientific-data Analysis Framework with Distributed File System}
 
+
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
 %% \address[label1]{}
 %% \address[label2]{}
 
-\author{Tao Zhang}
-
-\address{Tsinghua}
+%\author{Tao Zhang}
+%\ead{t-zhang11@mails.tsinghua.edu.cn}
+%\address{Tsinghua}
+\author[1]{Tao Zhang\corref{cor1}}
+\ead{t-zhang11@mails.tsinghua.edu.cn}
+\author[2]{XiangZheng Sun}
+%\ead{xiangzheng.sun@intel.com}
+\author[1]{Wei Xue}
+%\ead{xuewei@mail.tsinghua.edu.cn}
+\cortext[cor1]{Corresponding author. Tel: +86 18210192568}
+\address[1]{Department of Computer Science and Technology, Tsinghua University, Beijing, China}
+\address[2]{Intel Corporation, Beijing, China}
 
 \begin{abstract}
 Scientific-data analysis and visualization has become a key component in nowadays large-scale simulations. Due to the rapidly
 increasing data volume and awkward I/O pattern among high-structured files, known serial methods/tools cannot scale well and 
 usually lead to poor performance over traditional architectures. In this paper, we propose a new framework: ParSA 
 (parallel scientific-data analysis) for high-throughput and scalable scientific analysis, with distributed file system. ParSA
-present the optimization strategies oriented for physical disk to maximize distributed I/O property of distributed file system as
-well as to maximize overlapping the data reading, processing and transferring during computation. Besides, ParSA provides the similar interfaces as the NCO (netCDF Operator), which is used in most of climate data diagnostic package, making
-it easy to port this framework. We utilize ParSA to accelerate well-known analysis methods for climate models on Hadoop Distributed File System (HDFS). Experimental results demonstrate the high efficiency and scalability of ParSA. 
+presents the optimization strategies for grouping and spliting logical units to maximize distributed I/O property of distributed 
+file system as well as to maximize overlapping the data reading, processing and transferring during computation. Besides, ParSA 
+provides the similar interfaces as the NCO (NetCDF Operator), which is used in most of climate data diagnostic packages, making
+it easy to port this framework. We utilize ParSA to accelerate well-known analysis methods for climate models on Hadoop Distributed File 
+System (HDFS). Experimental results demonstrate the high efficiency and scalability of ParSA, getting the maximum 1.2GB/s throughput.
 \end{abstract}
 
 \begin{keyword}
@@ -112,7 +124,7 @@ Data intensive \sep Scientific data analysis \sep Distributed file system
 
 %% main text
 \section{Introduction}
-In most of modern scitific applications, huge amounts of data are produced. Large-scale simulations, such as climate modeling,
+In most of modern scientific applications, huge amounts of data are produced. Large-scale simulations, such as climate modeling,
 high-energy physics simulation and genome mapping, generate hundreds of terabytes data volumes(Tevfik, 2009; Hey, 2003). 
 Additionally, it still increases as the high resolution model developping. As a consequence, analysis of scientific-data is 
 data-intensive.\par
@@ -419,20 +431,21 @@ and Wavelet transform.
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
 %%
-%%  \bibliographystyle{elsarticle-num} 
-%%  \bibliography{<your bibdatabase>}
+\bibliographystyle{elsarticle-num} 
+\bibliography{<your bibdatabase>}
 
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
 
-%\begin{thebibliography}{00}
+\begin{thebibliography}{00}
 
-%% \bibitem{label}
+\bibitem{label}
 %% Text of bibliographic item
 
-%\bibitem{text}
+\bibitem{text}
 
-%\end{thebibliography}
+\end{thebibliography}
+
 \end{document}
 \endinput
 %%

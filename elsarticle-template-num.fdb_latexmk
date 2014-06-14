@@ -1,5 +1,12 @@
 # Fdb version 3
-["pdflatex"] 1402692603 "elsarticle-template-num.tex" "elsarticle-template-num.pdf" "elsarticle-template-num" 1402692603
+["bibtex elsarticle-template-num"] 1402772525 "elsarticle-template-num.aux" "elsarticle-template-num.bbl" "elsarticle-template-num" 1402772526
+  "./elsarticle-num.bst" 1253128712 30001 6fb47de13cacd52e2c80466b180be262 ""
+  "<your bibdatabase>.bib" 0 -1 0 ""
+  "elsarticle-template-num.aux" 1402772525 2408 b54a639ccaa3d8fead8e5c49a476678b ""
+  "elsarticle-template-num.bcf" 0 -1 0 ""
+  (generated)
+  "elsarticle-template-num.bbl"
+["pdflatex"] 1402772525 "elsarticle-template-num.tex" "elsarticle-template-num.pdf" "elsarticle-template-num" 1402772526
   "/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1335995445 7612 c47308d923ec19888707b0f1792b326a ""
   "/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifluatex.sty" 1303254447 7324 11d14f318d865f420e692d4e6c9c18c3 ""
@@ -35,11 +42,12 @@
   "/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/pifont.sty" 1156702453 2284 330328193b4aeb08dd45b0dd3e5ae732 ""
   "/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/upsy.fd" 1137110629 148 2da0acd77cba348f34823f44cabf0058 ""
   "/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/upzd.fd" 1137110629 148 b2a94082cb802f90d3daf6dd0c7188a0 ""
-  "elsarticle-template-num.aux" 1402692603 2116 52af774cc51697ef5077e59b5596d8fe ""
-  "elsarticle-template-num.spl" 1402692603 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "elsarticle-template-num.tex" 1402692602 29898 f81dd7c7a70a605835f32912b8f70596 ""
+  "elsarticle-template-num.aux" 1402772525 2408 b54a639ccaa3d8fead8e5c49a476678b ""
+  "elsarticle-template-num.bbl" 0 -1 0 "bibtex elsarticle-template-num"
+  "elsarticle-template-num.spl" 1402772525 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "elsarticle-template-num.tex" 1402772523 30373 fc619b962aad0041b2cdc20bf777036a ""
   (generated)
   "elsarticle-template-num.log"
-  "elsarticle-template-num.spl"
   "elsarticle-template-num.aux"
+  "elsarticle-template-num.spl"
   "elsarticle-template-num.pdf"
