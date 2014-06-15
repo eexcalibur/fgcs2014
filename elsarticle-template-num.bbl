@@ -1,0 +1,71 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{kosar2009new}
+T.~Kosar, M.~Balman, A new paradigm: Data-aware scheduling in grid computing,
+  Future Generation Computer Systems 25~(4) (2009) 406--413.
+
+\bibitem{hey2003data}
+A.~J. Hey, A.~E. Trefethen, The data deluge: An e-science perspective.
+
+\bibitem{rew2006netcdf}
+R.~Rew, E.~Hartnett, J.~Caron, et~al., Netcdf-4: software implementing an
+  enhanced data model for the geosciences, in: 22nd International Conference on
+  Interactive Information Processing Systems for Meteorology, Oceanograph, and
+  Hydrology, 2006.
+
+\bibitem{folk1999hdf5}
+M.~Folk, A.~Cheng, K.~Yates, Hdf5: A file format and i/o library for high
+  performance computing applications, in: Proceedings of Supercomputing,
+  Vol.~99, 1999.
+
+\bibitem{lofstead2008input}
+J.~Lofstead, F.~Zheng, S.~Klasky, K.~Schwan, Input/output apis and data
+  organization for high performance scientific computing, in: Petascale Data
+  Storage Workshop, 2008. PDSW'08. 3rd, IEEE, 2008, pp. 1--6.
+
+\bibitem{rew1990netcdf}
+R.~Rew, G.~Davis, Netcdf: an interface for scientific data access, Computer
+  Graphics and Applications, IEEE 10~(4) (1990) 76--82.
+
+\bibitem{zender2008analysis}
+C.~S. Zender, Analysis of self-describing gridded geoscience data with netcdf
+  operators (nco), Environmental Modelling \& Software 23~(10) (2008)
+  1338--1342.
+
+\bibitem{ncl}
+NCAR, Ncar command language, \url{http://www.ncl.ucar.edu/}.
+
+\bibitem{dean2008mapreduce}
+J.~Dean, S.~Ghemawat, Mapreduce: simplified data processing on large clusters,
+  Communications of the ACM 51~(1) (2008) 107--113.
+
+\bibitem{zhao2010parallel}
+H.~Zhao, S.~Ai, Z.~Lv, B.~Li, Parallel accessing massive netcdf data based on
+  mapreduce, in: Web Information Systems and Mining, Springer, 2010, pp.
+  425--431.
+
+\bibitem{buck2011scihadoop}
+J.~B. Buck, N.~Watkins, J.~LeFevre, K.~Ioannidou, C.~Maltzahn, N.~Polyzotis,
+  S.~Brandt, Scihadoop: Array-based query processing in hadoop, in: Proceedings
+  of 2011 International Conference for High Performance Computing, Networking,
+  Storage and Analysis, ACM, 2011, p.~66.
+
+\bibitem{wang2008clustered}
+D.~L. Wang, C.~S. Zender, S.~F. Jenks, Clustered workflow execution of
+  retargeted data analysis scripts, in: Cluster Computing and the Grid, 2008.
+  CCGRID'08. 8th IEEE International Symposium on, IEEE, 2008, pp. 449--458.
+
+\bibitem{borthakur2008hdfs}
+D.~Borthakur, Hdfs architecture guide, HADOOP APACHE PROJECT http://hadoop.
+  apache. org/common/docs/current/hdfs design. pdf.
+
+\bibitem{ghemawat2003google}
+S.~Ghemawat, H.~Gobioff, S.-T. Leung, The google file system, in: ACM SIGOPS
+  Operating Systems Review, Vol.~37, ACM, 2003, pp. 29--43.
+
+\end{thebibliography}

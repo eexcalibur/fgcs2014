@@ -48,6 +48,7 @@
 \usepackage{lineno}
 \usepackage{algorithm}
 \usepackage{algorithmic} 
+\def\bibsection{\section*{References}}
 
 \journal{Future Generation Computer Systems}
 
@@ -125,26 +126,26 @@ Data intensive \sep Scientific data analysis \sep Distributed file system
 %% main text
 \section{Introduction}
 In most of modern scientific applications, huge amounts of data are produced. Large-scale simulations, such as climate modeling,
-high-energy physics simulation and genome mapping, generate hundreds of terabytes data volumes(Tevfik, 2009; Hey, 2003). 
+high-energy physics simulation and genome mapping, generate hundreds of terabytes data volumes\cite{kosar2009new}\cite{hey2003data}. 
 Additionally, it still increases as the high resolution model developping. As a consequence, analysis of scientific-data is 
 data-intensive.\par
 In fact, almost all of scientific-data are stored in high-structured files, some of which provide parallel I/O interface, such as
-Network Common Data Format version 4(NetCDF4), Hierarchical Data Format 5(HDF5) (hdfs) and ADIOS BP data format (bp) (bp), and some
-of which only support serial I/O interface,  like Network Common Data Format version 3(NetCDF3). All of these are self-describing,
-machine-independent data format. \par
+Network Common Data Format version 4 (NetCDF4)\cite{rew2006netcdf}, Hierarchical Data Format 5(HDF5)\cite{folk1999hdf5} and ADIOS BP data
+format (BP) \cite{lofstead2008input}, and some of which only support serial I/O interface,  like Network Common Data Format version 3
+(NetCDF3) \cite{rew1990netcdf}. All of them are self-describing, machine-independent data format. \par
 In scientific-data analysis, large-scale scientific-data are stored in RAID-5/6 or parallel file system. Yet the analysis methods/
-tools are always centralized approaches, such as NCO and NCL, which are the most used in climate applications for prossing NetCDF
-files, leading to very poor scalability and time-consuming performance. \par    
+tools are always centralized approaches, such as NCO\cite{zender2008analysis} and NCL\cite{ncl}, which are the most used in climate 
+applications for prossing NetCDF files, leading to very poor scalability and time-consuming performance. \par    
 Inspired by big data solution in Internet Port Data Center (IPDC), numerous frameworks with distributed strategy have been developed.
-MapReduce is a program framework for processing and generating large data sets, provideing automatic parallel mechanism and build-in
-fault-tolerance on a cluster. However, this solution with MapReduce requires that data first be transformed into a text-based format.
-SciHadoop is a Hadoop plugin allowing scientists to specify logical queries over array-based data models. It executes queries as
-map/reduce programs defined over the logical data model. It shows remarkable improvements for holistic functions of NetCDF data sets
-for the following optimization goals: reduce total data transfers, reduce remote reads and reduce unnecessary reads. Nevertheless,
-SciHadoop using java language leads to the compatibility problem to the existing climate data analysis tools, which is written by c
-shell scripts, NCL and NCO commands. The SWAMP project [9] has provided the parallel NCO operations, but the reading performance is
-still bottleneck. \par
-In this paper, we propose a new framework - Parallel Scientific-data Analysis (ParSA). We utilize the distributed I/O property with
+MapReduce is a program framework for processing and generating large data sets, provideing automatic parallel mechanism and build-in 
+fault-tolerance on a cluster\cite{dean2008mapreduce}. However, this solution with MapReduce requires data firstly to be transformed into 
+a text-based format\cite{zhao2010parallel}. SciHadoop\cite{buck2011scihadoop} is a Hadoop plugin allowing scientists to specify logical 
+queries over array-based data models. It executes queries as map/reduce programs defined over the logical data model. It shows remarkable 
+improvements for holistic functions of NetCDF data sets for the following optimization goals: reduce total data transfers, reduce remote 
+reads and reduce unnecessary reads. Nevertheless, SciHadoop using java language leads to the compatibility problem to the existing climate 
+data analysis tools, which is written by C shell scripts, NCL and NCO commands. The SWAMP project \cite{wang2008clustered} has provided the 
+parallel NCO operations, but the reading performance is still bottleneck. \par
+In this paper, we propose a new framework --- Parallel Scientific-data Analysis (ParSA). We utilize the distributed I/O property with
 Hadoop Distributed File System (HDFS) to improved data reading throughput. What is more, ParSA optimizes the data layout schedule
 stored in the distributed file system to overlap the data reading, processing and transferring. Besides, it provides parallel NCO
 operations, cooperating with HDFS, making it easy to use the efficient tool, without changing a lot for current climate analysis
@@ -156,8 +157,8 @@ of to optimize distributed I/O performance. We also present the character of sci
 probability of analysis transportaion onto HDFS.
 
 \subsection{HDFS}
-HDFS is an open source project, driven by Google File System (GFS). As a distributed, scalable and portable file system, HDFS is
-inherent for large-scale data-intensive process. \par
+HDFS\cite{borthakur2008hdfs} is an open source project, driven by Google File System (GFS)\cite{ghemawat2003google}. As a distributed, 
+scalable and portable file system, HDFS is inherent for large-scale data-intensive process. \par
 In HDFS, there are two types of node, Namenode and Datanode. Namenode maintains file system tree and metadata for all files or
 directories stored in HDFS, and Datanodes are where the data are actually stored. When a file are stored into HDFS, it will be
 split into file blocks as the storage unit of HDFS. For achieving fault-tolerance, HDFS stores three replicas, by default, for each
@@ -171,6 +172,12 @@ Namenode need recode mapping relation between ``a'' and block numbers. Since thr
 Namenode will select three Datanodes to store a block in the file ``a''. In Datanode, HDFS should choose a hard disk to each relica 
 of a block. As shown in Figure 1, the last block ``k'' is stored in disk ``2'', then the new one ``j'' will locate at disk ``0'' 
 according to the round-robin rule. \par
+
+\begin{figure}
+\centering
+
+\end{figure}
+
 Blocks of files are distributed in the two-tiered storage achitechture, Datanode and Datanode's disk. It will make full use of the
 collective bandwidth of HDFS if each relca of blocks is appropriately choosen and scheduled to reduce remoting reading among
 Datanodes. \par
@@ -432,19 +439,19 @@ and Wavelet transform.
 %% bibitems, please use
 %%
 \bibliographystyle{elsarticle-num} 
-\bibliography{<your bibdatabase>}
+\bibliography{zhangtao}
 
 %% else use the following coding to input the bibitems directly in the
 %% TeX file.
 
-\begin{thebibliography}{00}
+%\begin{thebibliography}{00}
 
-\bibitem{label}
+%\bibitem{label}
 %% Text of bibliographic item
 
-\bibitem{text}
+%\bibitem{text}
 
-\end{thebibliography}
+%\end{thebibliography}
 
 \end{document}
 \endinput
