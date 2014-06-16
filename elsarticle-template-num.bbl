@@ -68,4 +68,15 @@ D.~Borthakur, Hdfs architecture guide, HADOOP APACHE PROJECT http://hadoop.
 S.~Ghemawat, H.~Gobioff, S.-T. Leung, The google file system, in: ACM SIGOPS
   Operating Systems Review, Vol.~37, ACM, 2003, pp. 29--43.
 
+\bibitem{neale2010description}
+R.~B. Neale, C.~Chen, A.~Gettelman, P.~Lauritzen, S.~Park, D.~Williamson,
+  A.~Conley, R.~Garcia, D.~Kinnison, J.~Lamarque, et~al., Description of the
+  ncar community atmosphere model (cam 5.0), NCAR Tech. Note NCAR/TN-486+ STR.
+
+\bibitem{jacob2012new}
+R.~Jacob, X.~Xu, J.~Krishna, K.~Peterson, T.~Hayes, L.~Wang, T.~Tautges,
+  P.~Bochev, W.~Huang, M.~Haley, et~al., A new parallel library and scripting
+  language for analysis of ultra-large climate data sets, in: AGU Fall Meeting
+  Abstracts, Vol.~1, 2012, p. 1721.
+
 \end{thebibliography}
