@@ -7,8 +7,12 @@
 \Newlabel{2}{b}
 \citation{rew2006netcdf}
 \citation{folk1999hdf5}
-\citation{lofstead2008input}
+\citation{cdf}
 \citation{rew1990netcdf}
+\citation{grib}
+\citation{grib2}
+\citation{neale2010description}
+\citation{jacob2012new}
 \citation{zender2008analysis}
 \citation{ncl}
 \citation{dean2008mapreduce}
@@ -20,13 +24,10 @@
 \citation{ghemawat2003google}
 \@writefile{toc}{\contentsline {section}{\numberline {2}HDFS and scientific-data analysis}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}HDFS}{3}}
-\citation{neale2010description}
-\citation{jacob2012new}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces HDFS Architecture Block N represents $N_{th}$ file block of File ``1'' on HDFS\relax }}{4}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{figure1}{{1}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Scientific-data Analysis}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Problems and Chanllenges}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Problems and Chanllenges}{5}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Parallel scientific-data analysis}{5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Logical Unit Split and Group among File Blocks}{5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Logical Units Spliting and Grouping into HDFS Block. $LU_N$ presents $N_{th}$ logical unit. $LU_N(i)$ stands for $i_{th}$ part of $LU_N$\relax }}{6}}
@@ -60,6 +61,8 @@
 \newlabel{figure6}{{6}{11}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Block layout optimization}{12}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Data layout inter-Datanodes}{12}}
+\citation{pop}
+\citation{cesm}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Data layout intra-Datanodes}{13}}
 \newlabel{figure7a}{{7a}{13}}
 \newlabel{sub@figure7a}{{a}{13}}
@@ -68,11 +71,11 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Round-robin Method for File Block with Same Meaning. (a) Block layout unbalance for B0. There are two B0s locate on Disk 0 while Disk 2 contains no B0. (b) Using the improved strategy. B0s are stored in a round-robin way and locate evenly among disks.\relax }}{13}}
 \newlabel{figure7}{{7}{13}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Evalution}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Experimental setting}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Experiment platforms and test cases}{13}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces System Configuration of hadoop cluster 1\relax }}{14}}
-\newlabel{table1}{{1}{14}}
+\newlabel{table2}{{1}{14}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces System Configuration of hadoop cluster 2\relax }}{14}}
-\newlabel{table2}{{2}{14}}
+\newlabel{table1}{{2}{14}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Scalability with different disks per Datanode}{15}}
 \newlabel{figure8a}{{8a}{15}}
 \newlabel{sub@figure8a}{{a}{15}}
@@ -103,16 +106,20 @@
 \bibcite{hey2003data}{{2}{}{{}}{{}}}
 \bibcite{rew2006netcdf}{{3}{}{{}}{{}}}
 \bibcite{folk1999hdf5}{{4}{}{{}}{{}}}
-\bibcite{lofstead2008input}{{5}{}{{}}{{}}}
+\bibcite{cdf}{{5}{}{{}}{{}}}
 \bibcite{rew1990netcdf}{{6}{}{{}}{{}}}
-\bibcite{zender2008analysis}{{7}{}{{}}{{}}}
-\bibcite{ncl}{{8}{}{{}}{{}}}
-\bibcite{dean2008mapreduce}{{9}{}{{}}{{}}}
-\bibcite{zhao2010parallel}{{10}{}{{}}{{}}}
-\bibcite{buck2011scihadoop}{{11}{}{{}}{{}}}
-\bibcite{wang2008clustered}{{12}{}{{}}{{}}}
-\bibcite{borthakur2008hdfs}{{13}{}{{}}{{}}}
-\bibcite{ghemawat2003google}{{14}{}{{}}{{}}}
-\bibcite{neale2010description}{{15}{}{{}}{{}}}
-\bibcite{jacob2012new}{{16}{}{{}}{{}}}
+\bibcite{grib}{{7}{}{{}}{{}}}
+\bibcite{grib2}{{8}{}{{}}{{}}}
+\bibcite{neale2010description}{{9}{}{{}}{{}}}
+\bibcite{jacob2012new}{{10}{}{{}}{{}}}
+\bibcite{zender2008analysis}{{11}{}{{}}{{}}}
+\bibcite{ncl}{{12}{}{{}}{{}}}
+\bibcite{dean2008mapreduce}{{13}{}{{}}{{}}}
+\bibcite{zhao2010parallel}{{14}{}{{}}{{}}}
+\bibcite{buck2011scihadoop}{{15}{}{{}}{{}}}
+\bibcite{wang2008clustered}{{16}{}{{}}{{}}}
+\bibcite{borthakur2008hdfs}{{17}{}{{}}{{}}}
+\bibcite{ghemawat2003google}{{18}{}{{}}{{}}}
+\bibcite{pop}{{19}{}{{}}{{}}}
+\bibcite{cesm}{{20}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers

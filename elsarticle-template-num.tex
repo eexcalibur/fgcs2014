@@ -50,6 +50,9 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{url}
+
+\def\UrlBreaks{\do\/\do-}
 
 \def\bibsection{\section*{References}}
 
@@ -95,21 +98,24 @@
 \author[2]{XiangZheng Sun}
 %\ead{xiangzheng.sun@intel.com}
 \author[1]{Wei Xue}
+\author[2]{Nan Qiao}
 %\ead{xuewei@mail.tsinghua.edu.cn}
 \cortext[cor1]{Corresponding author. Tel: +86 18210192568}
 \address[1]{Department of Computer Science and Technology, Tsinghua University, Beijing, China}
 \address[2]{Intel Corporation, Beijing, China}
 
 \begin{abstract}
-Scientific-data analysis and visualization has become a key component in nowadays large-scale simulations. Due to the rapidly
+Scientific-data analysis and visualization has become a key component for nowadays large-scale simulations. Due to the rapidly
 increasing data volume and awkward I/O pattern among high-structured files, known serial methods/tools cannot scale well and 
 usually lead to poor performance over traditional architectures. In this paper, we propose a new framework: ParSA 
 (parallel scientific-data analysis) for high-throughput and scalable scientific analysis, with distributed file system. ParSA
-presents the optimization strategies for grouping and spliting logical units to maximize distributed I/O property of distributed 
-file system as well as to maximize overlapping the data reading, processing and transferring during computation. Besides, ParSA 
-provides the similar interfaces as the NCO (NetCDF Operator), which is used in most of climate data diagnostic packages, making
-it easy to port this framework. We utilize ParSA to accelerate well-known analysis methods for climate models on Hadoop Distributed File 
-System (HDFS). Experimental results demonstrate the high efficiency and scalability of ParSA, getting the maximum 1.2GB/s throughput.
+presents the optimization strategies for grouping and spliting logical units to utilize distributed I/O property of distributed 
+file system, scheduling the distribution of block replicas to reduce network reading as well as to maximize overlapping the data reading, 
+processing and transferring during computation. Besides, ParSA provides the similar interfaces as the NCO (NetCDF Operator), which is 
+used in most of climate data diagnostic packages, making it easy to use this framework. We utilize ParSA to accelerate well-known 
+analysis methods for climate models on Hadoop Distributed File System (HDFS). Experimental results demonstrate the high efficiency and 
+scalability of ParSA, getting the maximum 1.3GB/s throughput on a 6 nodes Hadoop cluster with 5 disks per node. Yet, it can only get 392MB/s
+throughput on a RAID-6 storage node. 
 \end{abstract}
 
 \begin{keyword}
@@ -119,7 +125,7 @@ System (HDFS). Experimental results demonstrate the high efficiency and scalabil
 
 %% MSC codes here, in the form: \MSC code \sep code
 %% or \MSC[2008] code \sep code (2000 is the default)
-Data intensive \sep Scientific data analysis \sep Distributed file system
+Data intensive compution\sep Scientific data analysis \sep Distributed file system 
 \end{keyword}
 
 \end{frontmatter}
@@ -129,35 +135,48 @@ Data intensive \sep Scientific data analysis \sep Distributed file system
 %% main text
 \section{Introduction}
 In most of modern scientific applications, huge amounts of data are produced. Large-scale simulations, such as climate modeling,
-high-energy physics simulation and genome mapping, generate hundreds of terabytes data volumes\cite{kosar2009new}\cite{hey2003data}. 
-Additionally, it still increases as the high resolution model developping. As a consequence, analysis of scientific-data is 
-data-intensive.\par
-In fact, almost all of scientific-data are stored in high-structured files, some of which provide parallel I/O interface, such as
-Network Common Data Format version 4 (NetCDF4)\cite{rew2006netcdf}, Hierarchical Data Format 5(HDF5)\cite{folk1999hdf5} and ADIOS BP data
-format (BP) \cite{lofstead2008input}, and some of which only support serial I/O interface,  like Network Common Data Format version 3
-(NetCDF3) \cite{rew1990netcdf}. All of them are self-describing, machine-independent data format. \par
-In scientific-data analysis, large-scale scientific-data are stored in RAID-5/6 or parallel file system. Yet the analysis methods/
-tools are always centralized approaches, such as NCO\cite{zender2008analysis} and NCL\cite{ncl}, which are the most used in climate 
-applications for prossing NetCDF files, leading to very poor scalability and time-consuming performance. \par    
+high-energy physics simulation and genome mapping, generate more than hundreds of terabytes data volumes \cite{kosar2009new} 
+\cite{hey2003data}. Additionally, it still increases as the high resolution model is developping. As a consequence, analysis of scientific-
+data is becoming more and more data-intensive as well as challenging.\par
+
+Currently, almost all of scientific-data are stored in highly-structured files, which are based on self-describing, machine-independent 
+data formats. Among these popular file formats, some provide parallel I/O interface, such as Network Common Data Format version 4 
+(NetCDF4) \cite{rew2006netcdf}, Hierarchical Data Format 5(HDF5) \cite{folk1999hdf5}, and all others only support serial I/O interface, like 
+Common Data Format(CDF) \cite{cdf}, Network Common Data Format version 3 (NetCDF3) \cite{rew1990netcdf}, General Regularly-distributed 
+Information in Binary form(GRIB) \cite{grib} and General Regularly-distributed Information in Binary form Edition 2(GRIB2) \cite{grib2}.\par
+
+For climte model simulation data, the total size is extremely huge. One single file of CAM at 0.125 degrees, an atmosphere model from 
+NCAR\cite{neale2010description}, is 24GB size along with one single 3D variable is 616MB and one 2D variable is 24MB. It is 28.8TB size of 
+monthly outputs across 100-year simulation\cite{jacob2012new}. These data are organized by thousands of files with timestamp named in NetCDF 
+format, called history results. All of files contains the same physical variables, each of which is a logical unit. Yet the size of different 
+logical unit varies a lot in one file. Most of the analysis operations, including computing climate mean state, remapping different grids or
+resolutions as well as fast fourier transform (FFT), require merging or cumulating the same logical unit within all of files. \par 
+
+However, most of the analysis methods/tools are always centralized approaches, such as NCO \cite{zender2008analysis} and NCL \cite{ncl}, 
+which are the most used in climate applications for processing NetCDF files, leading to very poor scalability and time-consuming 
+performance. \par  
+
 Inspired by big data solution in Internet Port Data Center (IPDC), numerous frameworks with distributed strategy have been developed.
-MapReduce is a program framework for processing and generating large data sets, provideing automatic parallel mechanism and build-in 
-fault-tolerance on a cluster\cite{dean2008mapreduce}. However, this solution with MapReduce requires data firstly to be transformed into 
-a text-based format\cite{zhao2010parallel}. SciHadoop\cite{buck2011scihadoop} is a Hadoop plugin allowing scientists to specify logical 
-queries over array-based data models. It executes queries as map/reduce programs defined over the logical data model. It shows remarkable 
-improvements for holistic functions of NetCDF data sets for the following optimization goals: reduce total data transfers, reduce remote 
-reads and reduce unnecessary reads. Nevertheless, SciHadoop using java language leads to the compatibility problem to the existing climate 
-data analysis tools, which is written by C shell scripts, NCL and NCO commands. The SWAMP project \cite{wang2008clustered} has provided the 
-parallel NCO operations, but the reading performance is still bottleneck. \par
+MapReduce is a program framework for processing and managing large data sets, provideing automatic parallel mechanism and build-in 
+fault-tolerance on clusters \cite{dean2008mapreduce}. However, the solution with MapReduce requires data firstly to be transformed into 
+a text-based format \cite{zhao2010parallel}. SciHadoop \cite{buck2011scihadoop} is a Hadoop plugin allowing scientists to specify logical 
+queries over array-based data models. It executes queries with map/reduce programs over the logical data model. It targets the optimizations 
+on: reducing total data transfers, remote reads as well as unnecessary reads. Nevertheless, SciHadoop mainly processes array-based query 
+operations,  which data is usually stored continuously. Then the optimization strategies are not suitable for climate data analysis 
+operations, which require to process discontinuously logical unit stored in different files. Moreover, SciHadoop using java language leads to 
+the compatibility problem to the existing climate data analysis tools, which is mostly written by shell scripts, NCL and NCO commands. The 
+SWAMP project \cite{wang2008clustered} has provided the parallel NCO operations, but the reading performance is still a bottleneck due to its 
+coarse granularity task division based on directed acyclic graph (DAG) applications. \par
+
 In this paper, we propose a new framework --- Parallel Scientific-data Analysis (ParSA). We utilize the distributed I/O property with
-Hadoop Distributed File System (HDFS) to improved data reading throughput. What is more, ParSA optimizes the data layout schedule
+Hadoop Distributed File System (HDFS) to improved data reading throughput. What is more, ParSA optimizes the data layout 
 stored in the distributed file system to overlap the data reading, processing and transferring. Besides, it provides parallel NCO
 operations, cooperating with HDFS, making it easy to use the efficient tool, without changing a lot for current climate analysis
 package.
 
 \section{HDFS and scientific-data analysis}
-In this section, we will present the property of distributed file system HDFS, relicas and scheduler, which can be taken advantage
-of to optimize distributed I/O performance. We also present the character of scientific-data analysis, and discuss about the 
-probability of analysis transportaion onto HDFS.
+In this section, we will present the property of distributed file system HDFS, replicas and scheduler, which can be taken advantage
+of to optimize distributed I/O performance. We will also discuss about the probability of analysis over HDFS.
 
 \subsection{HDFS}
 HDFS\cite{borthakur2008hdfs} is an open source project, driven by Google File System (GFS)\cite{ghemawat2003google}. As a distributed, 
@@ -190,26 +209,17 @@ MapReduce is usually introduced as a computation model cooperating with HDFS. It
 However, due to the traits of scientific data and the operation pattern, MapReduce cannot be directly utilized on scientific-data
 analysis with perfect performance.
 
-\subsection{Scientific-data Analysis}
-Scientific-data are usually stored in high-structured files, a kinds of spectial binary format, which can not be read directly by
-MapReduce. Each file contain multi logical units, and each unit are corresponding to its own phsical meaning. The size of 
-each logical varies a lot in one file and only same logical units can be manipulated in most of analysis operations. \par
-In this paper, climte model data is used, the total size of which is extremely huge. One single file of CAM at 0.125 degrees,
-an atmosphere model from NCAR\cite{neale2010description}, is 24GB size along with one single 3D variable is 616MB and one 2D variable 
-is 24MB. It is 28.8TB size of 100 years of monthly output\cite{jacob2012new}. These data are organized by thousands of files with 
-timestamp named in NetCDF format, called history result. Each file contains the same dozens of physical variables. Analysis 
-operations need to process the whole or part of the history results. These operations include computing average, combining the same 
-variables in different files, producing the remapping file and fast fourier transform (FFT), etc. They require to handle whole or
-part of variables in multi-files.
 
 \subsection{Problems and Chanllenges} 
-Problem/Challenge 1: How to define the operation unit considering the storage unit？ Logical unit size varies a lot from a few bytes to
+Problem/Challenge 1: How to define the fundamental scheduled unit? Logical unit size varies a lot from a few bytes to
 gigabytes. Then it can not be used as the operation unit. Otherwise, the workflow of each task will be imbalance. \par
-Problem/Challenge 2: How to schedule tasks among many files to increases the locality and reduce the data network transfer? If all logical
-units with same meanings locate on the same Datanode, all data access will proceed locally. However, default block placement policy of HDFS
-cannot ensure that, which leads huge amount data network transfer, as the above mentioned. \par
-Problem/Challenge 3: How to best utilize the disk I/O? There may be multi disks in one Datanode. It can not take use of disks thoughput if
-reading operations is serial or processing, reading and transferring is non-overlapping.  
+
+Problem/Challenge 2: How to schedule tasks among many files to increases the locality and reduce the data transfer accross network? If all 
+logical units with same meanings locate on the same Datanode, all data access will proceed locally. However, default block placement 
+policy of HDFS cannot ensure that results, which might lead huge amount data network transfer, as mentioned above. \par
+
+Problem/Challenge 3: How to best utilize the disk I/O intra-Datanode? There may be multi disks in one Datanode. It can not take use of 
+disks thoughput if reading operations is serial or processing, reading and transferring is non-overlapping.  
 
 \section{Parallel scientific-data analysis}
 In order to solve the problems mentioned in previous section to take full use of distributed I/O performance, we propose a new framework 
@@ -485,33 +495,12 @@ units. \par
 
 \section{Evalution}
 
-\subsection{Experimental setting}
+\subsection{Experiment platforms and test cases}
 To demonstrate the performance portability of ParSA framework, we choose two HDFS clusters with different configuration, as shown in Table
 .\ref{table1} and Table.\ref{table2}. \par
 
 \begin{table}[ht]
 \caption{System Configuration of hadoop cluster 1} 
-\centering 
-\begin{tabular}{c c}
-\hline
-configuration & parameter \\
-\hline 
-\#nodes & 16 \\ 
-\#disks per node & 2x1 TB SATA2 \\
-OS & RedHat 6.2 \\
-MPI & Intel® MPI Library 3.2 \\
-Compiler & Intel® Composer XE 2011 \\
-NetWork & Infiniband QDR \\
-CPU & Intel® Xeon® Processor E5620 @2.4GHz \\
-Memory & 48GB \\
-Hadoop & Apache Hadoop 1.0.3 \\
-\hline 
-\end{tabular}
-\label{table1} 
-\end{table}
-
-\begin{table}[ht]
-\caption{System Configuration of hadoop cluster 2} 
 \centering 
 \begin{tabular}{c c}
 \hline
@@ -531,14 +520,37 @@ Hadoop & Apache Hadoop 1.0.3 \\
 \label{table2} 
 \end{table}
 
-In order to demonstrate the efficiency of ParSA, we use climate data generated by a ocean model, POP, a component of climate model. The 
-dataset has 100 NetCDF files, and each of file contains 60 two-dimension variables (logical units) and 18 three-dimension variables, with
-320x384 and 320x384x40 resolution, which has 309 MB datasize. The total size of this dataset is 30.9 GB. \par 
+\begin{table}[ht]
+\caption{System Configuration of hadoop cluster 2} 
+\centering 
+\begin{tabular}{c c}
+\hline
+configuration & parameter \\
+\hline 
+\#nodes & 16 \\ 
+\#disks per node & 2x1 TB SATA2 \\
+OS & RedHat 6.2 \\
+MPI & Intel® MPI Library 3.2 \\
+Compiler & Intel® Composer XE 2011 \\
+NetWork & Infiniband QDR \\
+CPU & Intel® Xeon® Processor E5620 @2.4GHz \\
+Memory & 48GB \\
+Hadoop & Apache Hadoop 1.0.3 \\
+\hline 
+\end{tabular}
+\label{table1} 
+\end{table}
+
+In order to demonstrate the efficiency of ParSA, we use climate data generated by a ocean model, POP \cite{pop}, a component of climate system 
+model CESM \cite{cesm}. The dataset has 100 NetCDF files, and each of file contains 60 two-dimension variables (logical units) and 18 three-
+dimension variables, with 320x384 and 320x384x40 resolution, which has 309 MB datasize. The total size of this dataset is 30.9 GB. \par 
+
 The major analysis operation is calculating time average using ncea command of NCO package, which is the basic preprocessing operation
-for almost all of climate data analysis. \par
-To evaluate the scalability of ParSA, we compare the speedup and throughput performance of different number of Datanodes and different
-number of disks per node. Cluster 1 is used for the former experiment since the number nodes is more than cluster 2. While 
-cluser 2 is used for the later experiment since each node has more disks in cluster 1. \par 
+for climate data analysis. \par
+
+To evaluate the scalability of ParSA, we compare the speedup and throughput performance of different
+number of disks per node and different number of Datanodes. Cluster 1 is used for the former experiment since each node has more disks in 
+cluster 2. While cluster 2 is used for the later experiment since the number nodes is more than cluster 1. \par 
 
 \subsection{Scalability with different disks per Datanode}
 ParSA can get about 1.3 GB/s aggregation throuphout if per Datanode uses 5 disks, as shown Figure.\ref{figure8a}. The throughput has a 
@@ -564,7 +576,7 @@ to the ideal speedup.
 \end{figure}
 
 \subsection{Scalability with different Datanodes}
-Two disks per node are used in this evaluation with cluster 1. It almost keeps the linear speedup until 9 Datanodes as shown Figure 9. 
+Two disks per node are used in this evaluation with cluster 2. It almost keeps the linear speedup until 9 Datanodes as shown Figure 9. 
 However, the performance improvment is limited when the Datanodes are greater than 9 due to the increasing overhead of communication
 and the critical section controlled by mutex, as shown Figure.\ref{figure6}. Although data processing is overlapped with data accessing, 
 the time non-overlapped occupies almost 38.89\% on 16 datanodes, and this proportions are only 0.02\% and 7.96\% when datanodes are 9 
@@ -572,7 +584,7 @@ and 12 respectively. \par
 In Figure.\ref{figure9a}, it can get about 800MB/s maximum throughput on 12 datanodes, with 24 disks totally. While the same number of 
 disks in Figure.\ref{figure8a}, 4 disks per datanode, it can get about 1.2GB/s. The same performance only need 2 disks per datanode, 
 with 12 disks totally. The reason is that, on one hand, the disks and network are difference between the two cluters; on the other hand,
-cluster 1 requires more network access due to the few disks per node.  \par
+cluster 2 requires more network access due to the few disks per node.  \par
 The speedup of only reading is presented as Figure.\ref{figure9b}, which shows an exllcent scalability with different datanodes. The 
 reason why the speedup is higher than the ideal may result from performance variability. 
 
@@ -629,12 +641,12 @@ Compared with throuphput to evaluate the speedup, ParSA outperforms the above tw
 \end{figure}
 
 \section{Conclusion and future work}
-A high-throughput and scalable scientific framework combined with HDFS distributed file system and NCO analysis tool has been designed, 
-implemented and evaluated. Maximize distributed I/O performance has been gained by scheduling block repicas in different datanodes, 
+A high-throughput and scalable scientific data analysis framework combined with HDFS distributed file system and NCO analysis tool has been
+designed, implemented and evaluated. Maximize distributed I/O performance has been gained by scheduling block repicas in different datanodes, 
 optimizing the blocks layout for both inter-datanodes and intra-datanodes,  as well as overlapping the data reading, processing and 
-transferring. Instead of Hadoop framework, we use multi-process with MPI to parallel the NCO basic operations, without leading to compatible 
-problem. In future work, we plan on testing the framework on some complex climate data analysis, such as FFT, principal component analysis 
-and Wavelet transform.
+transferring. Instead of traditional Hadoop framework, we use multi-process with MPI to parallel the NCO basic operations, without leading to 
+compatible problem. In future work, we plan on testing the framework on some complex climate data analysis, such as FFT, principal component 
+analysis and Wavelet transform.
 
 %\label{text}
 	
@@ -648,7 +660,7 @@ and Wavelet transform.
 %% If you have bibdatabase file and want bibtex to generate the
 %% bibitems, please use
 %%
-\bibliographystyle{elsarticle-num} 
+\bibliographystyle{elsarticle-num} 	
 \bibliography{zhangtao}
 
 %% else use the following coding to input the bibitems directly in the

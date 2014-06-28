@@ -23,14 +23,31 @@ M.~Folk, A.~Cheng, K.~Yates, Hdf5: A file format and i/o library for high
   performance computing applications, in: Proceedings of Supercomputing,
   Vol.~99, 1999.
 
-\bibitem{lofstead2008input}
-J.~Lofstead, F.~Zheng, S.~Klasky, K.~Schwan, Input/output apis and data
-  organization for high performance scientific computing, in: Petascale Data
-  Storage Workshop, 2008. PDSW'08. 3rd, IEEE, 2008, pp. 1--6.
+\bibitem{cdf}
+NASA, Common data format, \url{http://cdf.gsfc.nasa.gov/cdf_home.html/}.
 
 \bibitem{rew1990netcdf}
 R.~Rew, G.~Davis, Netcdf: an interface for scientific data access, Computer
   Graphics and Applications, IEEE 10~(4) (1990) 76--82.
+
+\bibitem{grib}
+W.~M. Organization, Grib,
+  \url{http://www.wmo.int/pages/prog/www/WDM/Guides/Guide-binary-2.html/}.
+
+\bibitem{grib2}
+W.~M. Organization, Grib2,
+  \url{https://www.wmo.int/pages/prog/www/WMOCodes/Guides/GRIB/GRIB2_062006.pdf/}.
+
+\bibitem{neale2010description}
+R.~B. Neale, C.~Chen, A.~Gettelman, P.~Lauritzen, S.~Park, D.~Williamson,
+  A.~Conley, R.~Garcia, D.~Kinnison, J.~Lamarque, et~al., Description of the
+  ncar community atmosphere model (cam 5.0), NCAR Tech. Note NCAR/TN-486+ STR.
+
+\bibitem{jacob2012new}
+R.~Jacob, X.~Xu, J.~Krishna, K.~Peterson, T.~Hayes, L.~Wang, T.~Tautges,
+  P.~Bochev, W.~Huang, M.~Haley, et~al., A new parallel library and scripting
+  language for analysis of ultra-large climate data sets, in: AGU Fall Meeting
+  Abstracts, Vol.~1, 2012, p. 1721.
 
 \bibitem{zender2008analysis}
 C.~S. Zender, Analysis of self-describing gridded geoscience data with netcdf
@@ -61,22 +78,20 @@ D.~L. Wang, C.~S. Zender, S.~F. Jenks, Clustered workflow execution of
   CCGRID'08. 8th IEEE International Symposium on, IEEE, 2008, pp. 449--458.
 
 \bibitem{borthakur2008hdfs}
-D.~Borthakur, Hdfs architecture guide, HADOOP APACHE PROJECT http://hadoop.
-  apache. org/common/docs/current/hdfs design. pdf.
+D.~Borthakur, Hdfs architecture guide, HADOOP APACHE PROJECT
+  http://hadoop.apache.org/common/docs/current/hdfs design.pdf.
 
 \bibitem{ghemawat2003google}
 S.~Ghemawat, H.~Gobioff, S.-T. Leung, The google file system, in: ACM SIGOPS
   Operating Systems Review, Vol.~37, ACM, 2003, pp. 29--43.
 
-\bibitem{neale2010description}
-R.~B. Neale, C.~Chen, A.~Gettelman, P.~Lauritzen, S.~Park, D.~Williamson,
-  A.~Conley, R.~Garcia, D.~Kinnison, J.~Lamarque, et~al., Description of the
-  ncar community atmosphere model (cam 5.0), NCAR Tech. Note NCAR/TN-486+ STR.
+\bibitem{pop}
+R.~Smith, P.~Gent, Reference manual for the parallel ocean program (pop), ocean
+  component of the community climate system model (ccsm2. 0 and 3.0), Tech.
+  rep., Technical Report LA-UR-02-2484, Los Alamos National Laboratory, Los
+  Alamos, NM, http://www. ccsm. ucar. edu/models/ccsm3. 0/pop (2002).
 
-\bibitem{jacob2012new}
-R.~Jacob, X.~Xu, J.~Krishna, K.~Peterson, T.~Hayes, L.~Wang, T.~Tautges,
-  P.~Bochev, W.~Huang, M.~Haley, et~al., A new parallel library and scripting
-  language for analysis of ultra-large climate data sets, in: AGU Fall Meeting
-  Abstracts, Vol.~1, 2012, p. 1721.
+\bibitem{cesm}
+NCAR, Cesm, \url{http://www2.cesm.ucar.edu//}.
 
 \end{thebibliography}
