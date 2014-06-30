@@ -99,6 +99,8 @@
 %\ead{xiangzheng.sun@intel.com}
 \author[1]{Wei Xue}
 \author[2]{Nan Qiao}
+\author[1]{Huang Huang}
+\author[1]{JiWu Shu}
 %\ead{xuewei@mail.tsinghua.edu.cn}
 \cortext[cor1]{Corresponding author. Tel: +86 18210192568}
 \address[1]{Department of Computer Science and Technology, Tsinghua University, Beijing, China}
@@ -109,7 +111,7 @@ Scientific-data analysis and visualization has become a key component for nowada
 increasing data volume and awkward I/O pattern among high-structured files, known serial methods/tools cannot scale well and 
 usually lead to poor performance over traditional architectures. In this paper, we propose a new framework: ParSA 
 (parallel scientific-data analysis) for high-throughput and scalable scientific analysis, with distributed file system. ParSA
-presents the optimization strategies for grouping and spliting logical units to utilize distributed I/O property of distributed 
+presents the optimization strategies for grouping and splitting logical units to utilize distributed I/O property of distributed 
 file system, scheduling the distribution of block replicas to reduce network reading as well as to maximize overlapping the data reading, 
 processing and transferring during computation. Besides, ParSA provides the similar interfaces as the NCO (NetCDF Operator), which is 
 used in most of climate data diagnostic packages, making it easy to use this framework. We utilize ParSA to accelerate well-known 
@@ -239,7 +241,7 @@ Figure.\ref{figure3}. \par
 \begin{figure}
 	\centering
 	\includegraphics{figure2}
-	\caption{Logical Units Spliting and Grouping into HDFS Block. $LU_N$ presents $N_{th}$ logical unit. $LU_N(i)$ stands for 
+	\caption{Logical Units Splitting and Grouping into HDFS Block. $LU_N$ presents $N_{th}$ logical unit. $LU_N(i)$ stands for 
 			$i_{th}$ part of $LU_N$}
 	\label{figure2}
 \end{figure}
@@ -605,7 +607,7 @@ reason why the speedup is higher than the ideal may result from performance vari
 \end{figure}
 
 \subsection{Throughput comparision with different task optimization strategies}
-HDFS block is the basic operation unit in ParSA, spliting and grouping the logical unit. We select the block replicas in different 
+HDFS block is the basic operation unit in ParSA, splitting and grouping the logical unit. We select the block replicas in different 
 Datanodes to reduce network reading, optimize the workflow to support overlapping and parallelism of reading and processing, as well as 
 the optimization of blocks layout for both inter-datanodes and intra-datanodes. \par
 To present the improving performance, two additional strategies are compared to ParSA. The first one takes logical unit as the operation
